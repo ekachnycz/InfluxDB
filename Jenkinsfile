@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'alpine/helm:3.8.0'  // Image with Helm pre-installed
+        }
+    }
 
     stages {
         stage('Initialize Helm') {
