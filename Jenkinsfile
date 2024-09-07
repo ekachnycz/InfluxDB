@@ -10,7 +10,14 @@ pipeline {
             }
             steps {
                 script {
-                     sh 'export XDG_CONFIG_HOME=$PWD/.config && helm repo add influxdata https://helm.influxdata.com/ && helm repo update'
+                    // Set both XDG_CONFIG_HOME and XDG_CACHE_HOME to writable directories
+                    sh '''
+                    export XDG_CONFIG_HOME=$PWD/.config
+                    export XDG_CACHE_HOME=$PWD/.cache
+                    mkdir -p $XDG_CONFIG_HOME $XDG_CACHE_HOME
+                    helm repo add influxdata https://helm.influxdata.com/
+                    helm repo update
+                    '''
                 }
             }
         }
