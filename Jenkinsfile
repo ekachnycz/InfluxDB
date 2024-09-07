@@ -10,9 +10,7 @@ pipeline {
             }
             steps {
                 script {
-                    // Add the InfluxData Helm repo
-                    sh 'helm repo add influxdata https://helm.influxdata.com/'
-                    sh 'helm repo update'
+                     sh 'export XDG_CONFIG_HOME=$PWD/.config && helm repo add influxdata https://helm.influxdata.com/ && helm repo update'
                 }
             }
         }
@@ -40,10 +38,16 @@ pipeline {
 
     post {
         always {
-            script {
-                // Optionally check the status of the deployment
-                sh 'kubectl get all -n monitoring'
+            agent {
+                docker {
+                    image 'alpine/k8s:1.28.13'
+                }
             }
+            steps {
+                script {
+                    // Optionally check the status of the deployment
+                    sh 'kubectl get all -n monitoring'
+                }
         }
     }
 }
