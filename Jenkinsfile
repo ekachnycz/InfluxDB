@@ -9,7 +9,7 @@ pipeline {
                 }
             }
             steps {
-                script {
+                withKubeConfig(credentialsId: 'microk8s') {
                     // Set both XDG_CONFIG_HOME and XDG_CACHE_HOME to writable directories
                     sh '''
                     export XDG_CONFIG_HOME=$PWD/.config
