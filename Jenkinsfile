@@ -17,23 +17,12 @@ pipeline {
                     mkdir -p $XDG_CONFIG_HOME $XDG_CACHE_HOME
                     helm repo add influxdata https://helm.influxdata.com/
                     helm repo update
+                    helm upgrade --install my-release influxdata/influxdb
                     '''
                 }
             }
         }
 
-        stage('Deploy InfluxDB') {
-            agent {
-                docker {
-                    image 'alpine/k8s:1.28.13'
-                }
-            }
-            steps {
-                script {
-                    sh 'helm install my-influxdb influxdata/influxdb --version 4.12.5'
-                }
-            }
-        }
     }
 
 }
