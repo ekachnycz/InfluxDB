@@ -5,7 +5,7 @@ pipeline {
         stage('Initialize Helm') {
             agent {
                 docker {
-                    image 'alpine/helm:3.8.0'
+                    image 'alpine/k8s:1.28.13'
                 }
             }
             steps {
@@ -20,7 +20,7 @@ pipeline {
         stage('Deploy InfluxDB') {
             agent {
                 docker {
-                    image 'alpine/helm:3.8.0'
+                    image 'alpine/k8s:1.28.13'
                 }
             }
             steps {
