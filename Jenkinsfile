@@ -30,14 +30,7 @@ pipeline {
             }
             steps {
                 script {
-                    // Helm command to install or upgrade InfluxDB
-                    sh '''
-                    helm upgrade --install influxdb influxdata/influxdb \
-                      --namespace monitoring \
-                      --create-namespace \
-                      --set persistence.enabled=true \
-                      --set service.type=https://192.168.86.27:16443
-                    '''
+                    sh 'helm install my-influxdb influxdata/influxdb --version 4.12.5'
                 }
             }
         }
