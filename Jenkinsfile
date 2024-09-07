@@ -36,19 +36,3 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            agent {
-                docker {
-                    image 'alpine/k8s:1.28.13'
-                }
-            }
-            steps {
-                script {
-                    // Optionally check the status of the deployment
-                    sh 'kubectl get all -n monitoring'
-                }
-        }
-    }
-    }
-}
