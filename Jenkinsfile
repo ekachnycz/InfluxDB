@@ -1,12 +1,13 @@
 pipeline {
-    agent {
-        docker {
-            image 'alpine/helm:3.8.0'  // Image with Helm pre-installed
-        }
-    }
+    agent none  // Define no agent globally to handle it at stage level
 
     stages {
         stage('Initialize Helm') {
+            agent {
+                docker {
+                    image 'alpine/helm:3.8.0'
+                }
+            }
             steps {
                 script {
                     // Add the InfluxData Helm repo
@@ -17,9 +18,13 @@ pipeline {
         }
 
         stage('Deploy InfluxDB') {
+            agent {
+                docker {
+                    image 'alpine/helm:3.8.0'
+                }
+            }
             steps {
                 script {
-                    // Helm command to install or upgrade InfluxDB
                     sh '''
                     helm upgrade --install influxdb influxdata/influxdb \
                       --namespace monitoring \
