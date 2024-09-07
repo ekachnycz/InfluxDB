@@ -25,6 +25,7 @@ pipeline {
             }
             steps {
                 script {
+                    // Helm command to install or upgrade InfluxDB
                     sh '''
                     helm upgrade --install influxdb influxdata/influxdb \
                       --namespace monitoring \
