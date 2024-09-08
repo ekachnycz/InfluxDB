@@ -17,7 +17,7 @@ pipeline {
                     mkdir -p $XDG_CONFIG_HOME $XDG_CACHE_HOME
                     helm repo add influxdata https://helm.influxdata.com/
                     helm repo update
-                    helm install my-release influxdata/influxdb2 -f values.yaml
+                    helm upgrade --install my-release influxdata/influxdb2 -f values.yaml
                     '''
                 }
             }
